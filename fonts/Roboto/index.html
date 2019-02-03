@@ -11,6 +11,16 @@
 			
 			font-family: 'roboto';
 		}
+		
+		.light {
+			font-weight: 300;
+		}
+		.normal {
+			font-weight: 400;
+		}
+		.bold {
+			font-weight: 700;
+		}
 
 		section {
 			display: flex;
@@ -30,10 +40,24 @@
 </head>
 <body>
 	<form>
-		<!-- <legend>Font style</legend> -->
 		<label>Turn on/off Roboto
 			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
 		</label>
+
+		<span id="font-weight">Font-weight:
+			<label>
+				<input type="radio" name="weight" value="light">
+				Light
+			</label>
+			<label>
+				<input type="radio" name="weight" value="normal" checked>
+				Normal
+			</label>
+			<label>
+				<input type="radio" name="weight" value="bold">
+				Bold
+			</label>
+		</span>
 	</form>
 
 	<hr>
@@ -44,7 +68,7 @@
 	</section>
 
 	<section>
-		<p>Danish Alphabet:</p>
+		<p class="w300">Danish Alphabet:</p>
 		<ol>
 			<li>A a</li>
 			<li>B b</li>
@@ -105,5 +129,18 @@
 			<li>Ω ω</li>
 		</ol>
 	</section>
+	<script>
+		document.getElementById('font-weight').addEventListener('click', setFontWeight)
+
+		function setFontWeight ({target}) {
+			if (!target.value) return
+
+			const value = target.value
+			const values = ['light', 'normal', 'bold'].filter(v => v != value)
+
+			document.body.classList.add(value)
+			values.forEach(v => document.body.classList.remove(v))
+		}
+	</script>
 </body>
 </html>
