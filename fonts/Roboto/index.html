@@ -21,6 +21,12 @@
 		.bold {
 			font-weight: 700;
 		}
+		.regular {
+			font-style: normal;
+		}
+		.italic {
+			font-style: italic;
+		}
 
 		section {
 			display: flex;
@@ -40,11 +46,7 @@
 </head>
 <body>
 	<form>
-		<label>Turn on/off Roboto
-			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
-		</label>
-
-		<span id="font-weight">Font-weight:
+		<div id="font-weight">Font weight:
 			<label>
 				<input type="radio" name="weight" value="light">
 				Light
@@ -57,7 +59,22 @@
 				<input type="radio" name="weight" value="bold">
 				Bold
 			</label>
-		</span>
+		</div>
+
+		<div id="font-style">Font style:
+			<label>
+				<input type="radio" name="style" value="regular" checked>
+				Normal
+			</label>
+			<label>
+				<input type="radio" name="style" value="italic">
+				Italic
+			</label>
+		</div>
+		
+		<label>Turn on/off Roboto
+			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
+		</label>
 	</form>
 
 	<hr>
@@ -130,16 +147,26 @@
 		</ol>
 	</section>
 	<script>
-		document.getElementById('font-weight').addEventListener('click', setFontWeight)
+		document
+			.getElementById('font-weight')
+			.addEventListener('click', setFontWeight(['light', 'normal', 'bold']))
 
-		function setFontWeight ({target}) {
-			if (!target.value) return
+		document
+			.getElementById('font-style')
+			.addEventListener('click', setFontWeight(['regular', 'italic']))
 
-			const value = target.value
-			const values = ['light', 'normal', 'bold'].filter(v => v != value)
+		function setFontWeight (values) {
+			return ({target}) => {
+				if (!target.value) return
 
-			document.body.classList.add(value)
-			values.forEach(v => document.body.classList.remove(v))
+				const value = target.value
+
+				document.body.classList.add(value)
+				
+				values
+					.filter(v => v != value)
+					.forEach(v => document.body.classList.remove(v))
+			}
 		}
 	</script>
 </body>
