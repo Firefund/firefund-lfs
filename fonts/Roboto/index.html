@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Roboto Font Demo</title>
+	<link rel="stylesheet" href="font.css">
+	<style>
+		* {
+			box-sizing: border-box;
+			
+			font-family: 'roboto';
+		}
+
+		section {
+			display: flex;
+		}
+
+		ol {
+			margin: 1rem 1rem 0;
+			padding-right: 1rem;
+
+			border-right: 0.1rem solid #eee;
+		}
+
+		body.serif * {
+			font-family: serif;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<!-- <legend>Font style</legend> -->
+		<label>Turn on/off Roboto
+			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
+		</label>
+	</form>
+
+	<hr>
+
+	<section>
+		<p>Numbers:&nbsp;</p>
+		<p>0123456789</p>
+	</section>
+
+	<section>
+		<p>Danish Alphabet:</p>
+		<ol>
+			<li>A a</li>
+			<li>B b</li>
+			<li>C c</li>
+			<li>D d</li>
+			<li>E e</li>
+			<li>F f</li>
+			<li>G g</li>
+			<li>H h</li>
+			<li>I i</li>
+			<li>J j</li>
+			<li>K k</li>
+			<li>L l</li>
+			<li>M m</li>
+			<li>N n</li>
+			<li>O o</li>
+			<li>P p</li>
+			<li>Q q</li>
+			<li>R r</li>
+			<li>S s</li>
+			<li>T t</li>
+			<li>U u</li>
+			<li>V v</li>
+			<li>W w</li>
+			<li>X x</li>
+			<li>Y y</li>
+			<li>Z z</li>
+			<li>Æ æ</li>
+			<li>Ø ø</li>
+			<li>Å å</li>
+		</ol>
+
+		<p>Greek Alpabet</p>
+		<ol>
+			<li>Α α</li>
+			<li>Β β</li>
+			<li>Γ γ</li>
+			<li>Δ δ</li>
+			<li>Ε ε</li>
+			<li>Ζ ζ</li>
+			<li>Η η</li>
+			<li>Θ θ</li>
+			<li>Ι ι</li>
+			<li>Κ κ</li>
+			<li>Λ λ</li>
+			<li>Μ μ</li>
+			<li>Ν ν</li>
+			<li>Ξ ξ</li>
+			<li>Ο ο</li>
+			<li>Π π</li>
+			<li>Ρ ρ</li>
+			<li>Σ σ/ς</li>
+			<li>Τ τ</li>
+			<li>Υ υ</li>
+			<li>Φ φ</li>
+			<li>Χ χ</li>
+			<li>Ψ ψ</li>
+			<li>Ω ω</li>
+		</ol>
+	</section>
+</body>
+</html>
