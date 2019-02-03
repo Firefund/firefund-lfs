@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Roboto Font Demo</title>
-	<link rel="stylesheet" href="font.css">
+	<!-- <link rel="stylesheet" href="font.css"> -->
+	<!-- <link rel="stylesheet" href="web/font.css"> -->
 	<style>
 		* {
 			box-sizing: border-box;
@@ -32,6 +33,16 @@
 		<!-- <legend>Font style</legend> -->
 		<label>Turn on/off Roboto
 			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
+		</label>
+
+		<br>
+
+		Load
+		<label>TrueType
+			<input type="radio" name="encoding" checked value="ttf">
+		</label>
+		<label>webfonts
+			<input type="radio" name="encoding" value="web">
 		</label>
 	</form>
 
@@ -104,5 +115,26 @@
 			<li>Ω ω</li>
 		</ol>
 	</section>
+
+	<script>
+		document.querySelectorAll('input[name=encoding]')
+			.forEach(el => el.onclick = loadStyleSheet)
+
+		function loadStyleSheet () {
+			const webfontEncoding = getEncodingChoice()
+			
+			console.log(webfontEncoding)
+			/*document.head.appendChild()*/
+		}
+
+		function getEncodingChoice () {
+			return [].slice.call(
+					document.querySelectorAll('input[name=encoding]')
+				)
+				.map(radio => radio.checked && radio.value)
+				.reduce((value1, value2) => value1 ? value1 : value2)
+		}
+
+	</script>
 </body>
 </html>
