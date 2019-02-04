@@ -9,7 +9,7 @@ Table Of Content
 1. [Download](#Download)
 1. [Verify](#Verify)
 1. [Optimize](#Optimize)
-
+1. [Web](#Web)
 
 ## Download
 
@@ -212,6 +212,33 @@ The answer is `.woff`.
 
 We can use an online webfont generator like
 [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator)
-to convert our `.ttf` files to `.woff`.
+to convert our `.ttf` files to `.woff` and `.woff2`.
+
+Click on _UPLOAD FONTS_ and choose all of our `.ttf` files. You remembered to
+delete the font-weights that we do not need, right?
+
+Check _"Yes, the fonts I'm uploading are legally eligible for web embedding"_.
+
+We have 3 options, the default is _OPTIMAL_ which will remove everything we
+need in our font and only work in US English.
+**So choose _BASIC_**.
+
+> Under _EXPERT_ there is a lot of interesting font features. But note, that
+> just because a font feature exist, it does not mean that your font will
+> support that feature. You have to try and have a lot of patience.
+> We could set _Subsetting_ which would allow us to exclude Vietnamese
+> and Cyrillic. Of special interest
+> is `Tabular Numerals` which is the numbers specially designed to have equal
+> width when next to each other - think a counter where you don't want the numbers
+> to jump to the left and right as they change.
+
+Click on _DOWNLOAD YOUR KIT_.
+Between uploading fonts and converting them, you can make yourself a cup of coffee.
+This **will** take some time.
+
+Unzip the files to `fonts/myfont/web/`.
+
+
+## Web
 
 
