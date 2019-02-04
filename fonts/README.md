@@ -10,6 +10,7 @@ Table Of Content
 1. [Verify](#Verify)
 1. [Optimize](#Optimize)
 1. [WOFF](#WOFF)
+1. [Implementation](#Implementation)
 
 ## Download
 
@@ -309,5 +310,24 @@ conversion worked as expected.
 
 You will also notice that both Firefox and Chrome supports `.woff2` and will
 only download that file and not the `.woff` files.
+
+
+## Implementation
+
+> [firefund-production](https://github.com/Firefund/firefund-production/) is our
+> website. If you can not follow the link, it means **you do not have access**.
+> You are welcome to join us and we regularly have intro meetings.
+> [Contact us!](https://www.firefund.net/about-contact)
+
+Before you add the new font files to our website, you should delete the files
+that we do not need. Delete every file and folder in `myfont/web/` **except
+`.woff`, `.woff2` and `font.css`**. Then commit and push everything you just
+made to firefund-lfs.
+
+```bash
+git add myfont
+git commit -m "added new fonts for firefund"
+git push -u origin master
+```
 
 
