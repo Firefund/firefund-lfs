@@ -23,7 +23,7 @@ git lfs
 1. Download our files from git Large File Storage (lfs) by writting `git lfs pull`.
 
 You can see which type of files that are in git lfs by writting: `git lfs track`.
-And you can add new file types by writting: `git lfs track *.filetype` where _filetype_ is the file extension that you want to
+And you can add new file types by writting: `git lfs track "*.filetype"` where _filetype_ is the file extension that you want to
 put in git lfs, e.g. `*.ai` or `*.pdf`.
 
 
