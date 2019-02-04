@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>Roboto Font Demo</title>
-	<!-- <link rel="stylesheet" href="font.css"> -->
-	<link rel="stylesheet" href="web/font.css">
+	<link rel="stylesheet" href="font.css">
+	<!-- <link rel="stylesheet" href="web/font.css"> -->
 	<style>
 		* {
 			box-sizing: border-box;
-			
+
 			font-family: 'roboto';
 		}
-		
+
 		.light {
 			font-weight: 300;
 		}
@@ -33,10 +33,16 @@
 		}
 
 		ol {
-			margin: 1rem 1rem 0;
-			padding-right: 1rem;
+			margin: 1em 1em 0;
+			padding-right: 1em;
 
 			border-right: 0.1rem solid #eee;
+
+			white-space: nowrap;
+		}
+
+		ol[lang="ar"] {
+			padding-right: 3em;
 		}
 
 		body.serif * {
@@ -71,7 +77,7 @@
 				Italic
 			</label>
 		</div>
-		
+
 		<label>Turn on/off Roboto
 			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
 		</label>
@@ -85,8 +91,8 @@
 	</section>
 
 	<section>
-		<p class="w300">Danish Alphabet:</p>
-		<ol>
+		<p>Danish Alphabet:</p>
+		<ol lang="da">
 			<li>A a</li>
 			<li>B b</li>
 			<li>C c</li>
@@ -118,8 +124,8 @@
 			<li>Å å</li>
 		</ol>
 
-		<p>Greek Alpabet</p>
-		<ol>
+		<p>Greek Alphabet</p>
+		<ol lang="gr">
 			<li>Α α</li>
 			<li>Β β</li>
 			<li>Γ γ</li>
@@ -145,6 +151,38 @@
 			<li>Ψ ψ</li>
 			<li>Ω ω</li>
 		</ol>
+
+		<p>Arabic Alphabet</p>
+		<ol dir="rtl" lang="ar">
+			<li>ي ـي ـيـ يـ</li>
+			<li>و ـو</li>
+			<li>ه ـه ـهـ هـ</li>
+			<li>ن ـن ـنـ نـ</li>
+			<li>م ـم ـمـ مـ</li>
+			<li>ل ـل ـلـ لـ</li>
+			<li>ك ـك ـكـ كـ</li>
+			<li>ق ـق ـقـ قـ</li>
+			<li>ف ـف ـفـ فـ</li>
+			<li>غ ـغ ـغـ غـ</li>
+			<li>ع ـع ـعـ عـ</li>
+			<li>ظ ـظ ـظـ ظـ</li>
+			<li>ط ـط ـطـ طـ</li>
+			<li>ض ـض ـضـ ضـ</li>
+			<li>ص ـص ـصـ صـ</li>
+			<li>ش ـش ـشـ شـ</li>
+			<li>س ـس ـسـ سـ</li>
+			<li>ز ـز</li>
+			<li>ر ـر</li>
+			<li>ذ ـذ</li>
+			<li>د ـد</li>
+			<li>خ ـخ ـخـ خـ</li>
+			<li>ح ـح ـحـ حـ</li>
+			<li>ج ـج ـجـ جـ</li>
+			<li>ث ـث ـثـ ثـ</li>
+			<li>ت ـت ـتـ تـ</li>
+			<li>ب ـب ـبـ بـ</li>
+			<li>ا ـا</li>
+		</ol>
 	</section>
 	<script>
 		document
@@ -162,7 +200,7 @@
 				const value = target.value
 
 				document.body.classList.add(value)
-				
+
 				values
 					.filter(v => v != value)
 					.forEach(v => document.body.classList.remove(v))

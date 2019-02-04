@@ -8,6 +8,8 @@ your fonts will work on firefund.net
 Table Of Content
 1. [Download](#Download)
 1. [Verify](#Verify)
+1. [Optimize](#Optimize)
+
 
 ## Download
 
@@ -47,8 +49,10 @@ You can either unzip all files and delete `Roboto-Black.ttf`,
 just choose to extract every other file than them.
 
 > It turns out that you get every `.ttf` file from a font with every language
-> and all implemented font-features, when you press download. So we will skip the
-> language selection.
+> and all implemented font-features, when you press download. So we will skip a
+> larger explanation about language support but just for kicks - scroll
+> down to the _Languages_ section on Google Fonts, to see which languages
+> Roboto supports.
 
 The fonts hosted on Google Fonts are almost always very old and doesn't contain
 all the normal font features found in the same font, had you downloaded it
@@ -141,5 +145,73 @@ _If our font files are called something else, then we have to correct the link
 to the font file._
 
 On our test page there is a set of controls at the top.
+
+![Font Demo Controls](docs/font_controls.png)
+
+If you click on Italic and watch your Network pane in devtools, you will see
+that `Roboto-RegularItalic.ttf` is 404
+([HTTP 404 means that `Roboto-RegularItalic.ttf` is not found](https://httpstatusdogs.com/404-not-found)).
+
+The reason is that our italic font file is called `Roboto-Italic.ttf` but in
+`font.css` it is called `Roboto-RegularItalic.ttf`.
+
+```css
+@font-face {
+  font-family: 'roboto';
+  src: url(Roboto-RegularItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: 400;
+}
+```
+
+You can either change the name in `src` property or rename the file. I prefer
+having a similar naming convention for all files, so just as the italic version
+of `Roboto-Bold.ttf` is called `Roboto-BoldItalic.ttf`, I prefer to call
+`Roboto-Italic.ttf` for `Roboto-RegularItalic.ttf`.
+
+The controls set CSS properties `font-weight` and `font-style` for all HTML.
+When you change these properties, you should see that:
+
+1. The correct font file is downloaded (will only be downloaded once)
+1. That all text is changed to look how it is suppose to (Light
+should be lighter than Normal etc.)
+
+Below the horizontal ruler there is text examples in unicode. Unicode can display
+every letter for all languages in the world, but our font might not have a glyph
+for it. That is, **the letter will look wrong if our font does not support the letter.**
+Whenever a glyph is not supported, the browser will search for it on your system.
+We don't have control over which font the browser will find the correct glyph and
+it **will** depend on your device. Android, Windows and macOS have different system
+fonts installed, so the result will be different depending on OS and device.
+Samsung might pre-install other fonts than Google etc.
+
+Go through all of the control options and check that all characters renders similar.
+If they do not, then check that the correct `.ttf` file was loaded.
+
+**If the correct file did load, then the font does not support those characters.**
+
+The font currently hosted on Google Fonts supports the following character sets:
+
++ Cyrillic (Supported by Roboto)
++ Cyrillic Extended (Supported by Roboto)
++ Greek (Supported by Roboto) _- contains only Greek math symbols_
++ Greek Extended (Supported by Roboto) _- every Greek letter_
++ Latin (Supported by all Fonts) _- US English ASCII_
++ Latin Extended (Supported by Roboto) _- european letters like æøå_
++ Vietnamese (Supported by Roboto)
+
+
+## Optimize
+
+Even with only 3 different font weights for 1 font, we still have to download
+1.4MB, which is a lot of data, especially because the correct design will not
+be displayed until it has loaded.
+
+What we need is a more compact format than TrueType (`.ttf`).
+The answer is `.woff`.
+
+We can use an online webfont generator like
+[Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator)
+to convert our `.ttf` files to `.woff`.
 
 
