@@ -9,7 +9,7 @@ Table Of Content
 1. [Download](#Download)
 1. [Verify](#Verify)
 1. [Optimize](#Optimize)
-1. [Web](#Web)
+1. [WOFF](#WOFF)
 
 ## Download
 
@@ -244,7 +244,7 @@ This **will** take some time.
 Unzip the files to `fonts/myfont/web/`.
 
 
-## Web
+## WOFF
 
 [Web Open Font Format (`.woff`)](https://en.wikipedia.org/wiki/Web_Open_Font_Format).
 
@@ -272,5 +272,42 @@ to Web Open Font Format (WOFF) files.
 With `.woff` and `.woff2` we save several kilo bytes.
 `Roboto-Regular.ttf` went from 168KB to 92KB and 65KB, for `.woff` and `.woff2`.
 Not all browsers support `.woff2` so we need to serve both.
+
+Copy `myfont/font.css` to `myfont/web/font.css`.
+
+Open both `myfont/web/stylesheet.css` and `myfont/web/font.css` and copy the new
+Font Squirrel generated `src: url()` to `myfont/web/font.css`.
+
+The result should will be:
+
+```css
+/* bold */
+@font-face {
+  font-family: 'roboto';
+  src: url(roboto-bold.woff2) format('woff2'),
+       url(roboto-bold.woff) format('woff');
+  font-style: normal;
+  font-weight: 700;
+}
+/* ...etc. */
+```
+
+In `myfont/index.html` you should revert our change, that we did in the beginning
+of the [Verify](#Verify) section, so we include our optimized web font instead of
+TrueType.
+
+```html
+<!-- <link rel="stylesheet" href="font.css"> -->
+<link rel="stylesheet" href="web/font.css">
+```
+
+On our you repeat the verification that we did for TrueType to check that our
+conversion worked as expected.
+
+1. The correct font file is downloaded (will only be downloaded once)
+1. That all text is changed to look how it is suppose to (Light should be lighter than Normal etc.)
+
+You will also notice that both Firefox and Chrome supports `.woff2` and will
+only download that file and not the `.woff` files.
 
 
