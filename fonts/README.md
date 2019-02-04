@@ -17,7 +17,12 @@ First we need a _source_ font so we can build our web fonts.
 [Google Fonts](https://fonts.google.com/) is one of the most known places to
 download free fonts from, but a lot of others exist.
 
-This guide will focus on Google Fonts and the TrueType Font format (`.ttf`).
+> This guide will focus on Google Fonts and the TrueType Font format (`.ttf`).
+> Another format, called OpenType, is an extension to TrueType and everything in
+> this text regarding TrueType is interchangeable with OpenType.
+> That is, in this text everywhere it says TrueType,
+> you can apply it to OpenType as well.
+> https://docs.microsoft.com/typography/opentype/index
 
 After you have found your font, click on the small + circle and then on "Family
 Selected".
@@ -208,7 +213,7 @@ Even with only 3 different font weights for 1 font, we still have to download
 be displayed until it has loaded.
 
 What we need is a more compact format than TrueType (`.ttf`).
-The answer is `.woff`.
+The answer is Web Open Font Format (`.woff`).
 
 We can use an online webfont generator like
 [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator)
@@ -227,7 +232,7 @@ need in our font and only work in US English.
 > just because a font feature exist, it does not mean that your font will
 > support that feature. You have to try and have a lot of patience.
 > We could set _Subsetting_ which would allow us to exclude Vietnamese
-> and Cyrillic. Of special interest
+> and Cyrillic from Roboto. Of special interest
 > is `Tabular Numerals` which is the numbers specially designed to have equal
 > width when next to each other - think a counter where you don't want the numbers
 > to jump to the left and right as they change.
@@ -240,5 +245,32 @@ Unzip the files to `fonts/myfont/web/`.
 
 
 ## Web
+
+[Web Open Font Format (`.woff`)](https://en.wikipedia.org/wiki/Web_Open_Font_Format).
+
+`fonts/myfont/web/stylesheet.css` contains very similar CSS as our
+`fonts/myfont/fonts.css`.
+
+```css
+@font-face {
+    font-family: 'robotolight';
+    src: url('roboto-light.woff2') format('woff2'),
+         url('roboto-light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+```
+_Font Squirrel can not recognize italic `font-style` or `font-weight`.
+Not even the `font-family` name is correct. This highlight a big problem with
+fonts - there is very little that can be automated. We have to manually verify
+the correctness of our fonts and manually setup our font usage in CSS._
+
+Font Squirrel did get the file path correct and have encoded our TrueType files
+to Web Open Font Format (WOFF) files.
+
+With `.woff` and `.woff2` we save several kilo bytes.
+`Roboto-Regular.ttf` went from 168KB to 92KB and 65KB, for `.woff` and `.woff2`.
+Not all browsers support `.woff2` so we need to serve both.
 
 

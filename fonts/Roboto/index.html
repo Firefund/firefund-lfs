@@ -52,6 +52,21 @@
 </head>
 <body>
 	<form>
+		<label>Turn on/off Roboto
+			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
+		</label>
+
+		<div id="font-style">Font style:
+			<label>
+				<input type="radio" name="style" value="regular" checked>
+				Normal
+			</label>
+			<label>
+				<input type="radio" name="style" value="italic">
+				Italic
+			</label>
+		</div>
+
 		<div id="font-weight">Font weight:
 			<label>
 				<input type="radio" name="weight" value="light">
@@ -66,21 +81,6 @@
 				Bold
 			</label>
 		</div>
-
-		<div id="font-style">Font style:
-			<label>
-				<input type="radio" name="style" value="regular" checked>
-				Normal
-			</label>
-			<label>
-				<input type="radio" name="style" value="italic">
-				Italic
-			</label>
-		</div>
-
-		<label>Turn on/off Roboto
-			<input type="checkbox" checked onclick="document.body.classList.toggle('serif')">
-		</label>
 	</form>
 
 	<hr>
