@@ -41,3 +41,6 @@ After the steps in **Getting started**, you should only need to use _normal_ git
 
 Please create a new [issue in firefund-lfs](https://github.com/firefund/firefund-lfs/issues), so we can document issues and
 write them down here. Then post the link in our Slack and maybe add @troldmand or @dotnetcarpenter, so they can help you out.
+
+Moving a git tracked file to git-lfs:
+https://help.github.com/articles/moving-a-file-in-your-repository-to-git-large-file-storage/
