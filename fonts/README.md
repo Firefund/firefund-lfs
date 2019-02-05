@@ -1,5 +1,5 @@
-Fonts
-=====
+Font Guide
+==========
 
 Getting fonts ready for web can be a very manual process and font bugs are very
 difficult to track down. This is a step by step guide you can use to verify that
