@@ -5,7 +5,8 @@ Getting fonts ready for web can be a very manual process and font bugs are very
 difficult to track down. This is a step by step guide you can use to verify that
 your fonts will work on firefund.net.
 
-Table Of Content
+**Table Of Content**
+
 1. [Download](#Download)
 1. [Verify](#Verify)
 1. [Optimize](#Optimize)
@@ -78,6 +79,7 @@ Now copy `index.html` and `font.css` from the `Roboto` folder into `myfont`.
 
 ```bash
 cd fonts
+mkdir myfont
 cp -v Roboto/index.html myfont
 cp -v Roboto/font.css myfont
 ```
@@ -116,7 +118,7 @@ Like so:
 <!-- <link rel="stylesheet" href="web/font.css"> -->
 ```
 
-To verify our fonts we need to both visually verify our letters but we also need
+To verify our fonts, we need to both visually verify our letters but we also need
 to see that the correct font is loaded by browsers. In Chrome you can see
 network requests by just opening `index.html` and check the Network pane in
 devtools but Firefox will only show you network requests if you see `index.html`
@@ -186,7 +188,7 @@ Below the horizontal ruler there is text examples in unicode. Unicode can displa
 every letter for all languages in the world, but our font might not have a glyph
 for it. That is, **the letter will look wrong if our font does not support the letter.**
 Whenever a glyph is not supported, the browser will search for it on your system.
-We don't have control over which font the browser will find the correct glyph and
+We don't have control over which font the browser will find the correct glyph in and
 it **will** depend on your device. Android, Windows and macOS have different system
 fonts installed, so the result will be different depending on OS and device.
 Samsung might pre-install other fonts than Google etc.
@@ -196,7 +198,7 @@ If they do not, then check that the correct `.ttf` file was loaded.
 
 **If the correct file did load, then the font does not support those characters.**
 
-The font currently hosted on Google Fonts supports the following character sets:
+The Roboto font currently hosted on Google Fonts supports the following character sets:
 
 + Cyrillic (Supported by Roboto)
 + Cyrillic Extended (Supported by Roboto)
@@ -217,10 +219,11 @@ What we need is a more compact format than TrueType (`.ttf`).
 The answer is Web Open Font Format (`.woff`).
 
 We can use an online webfont generator like
-[Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator)
+[Font Squirrel][Font Squirrel]
 to convert our `.ttf` files to `.woff` and `.woff2`.
 
-Click on _UPLOAD FONTS_ and choose all of our `.ttf` files. You remembered to
+Go to [Font Squirrel][Font Squirrel] and click on _UPLOAD FONTS_
+and choose all of our `.ttf` files. You remembered to
 delete the font-weights that we do not need, right?
 
 Check _"Yes, the fonts I'm uploading are legally eligible for web embedding"_.
@@ -302,7 +305,14 @@ TrueType.
 <link rel="stylesheet" href="web/font.css">
 ```
 
-On our you repeat the verification that we did for TrueType to check that our
+You also have to rename `myfont/web/stylesheet.css` to
+`myfont/web/font.css`, so that our reference in `index.html` is correct.
+
+```
+mv myfont/web/stylesheet.css myfont/web/font.css
+```
+
+Repeat the verification steps that we did for TrueType to check that our
 conversion worked as expected.
 
 1. The correct font file is downloaded (will only be downloaded once)
@@ -411,7 +421,20 @@ original TrueType, in case a browser doesn't understand WOFF. And it gives us a
 backup of our original font file in case we need to create a new format in the
 future.
 
-Now we only need to create a new `bundle.css` that we can use on our website.
+Now that we have defined our font, we want to use it!
+In `styles/base.css` we have defined that every element should use `roboto`.
+
+```css
+* { font-family: "roboto"; }
+```
+
+Non of our [BEM blocks](http://getbem.com/naming/) in `styles/blocks/` sets
+`font-family`. So if you want to change font for our entire website,
+`styles/base.css` is the place to do it. Of course, you can set another
+`font-family` in a specific Block. Just remember that it will add complexity to
+maintaining our website and might break the overall design experience.
+
+Finally we only need to create a new `bundle.css` that we can use on our website.
 Write `make prod` in your terminal in the `firefund-production` folder and
 push to our staging server.
 
@@ -420,3 +443,4 @@ push to our staging server.
 
 [firefund-lfs]: https://github.com/Firefund/firefund-lfs
 [firefund-production]: https://github.com/Firefund/firefund-production/
+[Font Squirrel]: https://www.fontsquirrel.com/tools/webfont-generator
