@@ -3,7 +3,7 @@ Fonts
 
 Getting fonts ready for web can be a very manual process and font bugs are very
 difficult to track down. This is a step by step guide you can use to verify that
-your fonts will work on firefund.net
+your fonts will work on firefund.net.
 
 Table Of Content
 1. [Download](#Download)
@@ -279,7 +279,7 @@ Copy `myfont/font.css` to `myfont/web/font.css`.
 Open both `myfont/web/stylesheet.css` and `myfont/web/font.css` and copy the new
 Font Squirrel generated `src: url()` to `myfont/web/font.css`.
 
-The result should will be:
+The result should be:
 
 ```css
 /* bold */
@@ -309,12 +309,12 @@ conversion worked as expected.
 1. That all text is changed to look how it is suppose to (Light should be lighter than Normal etc.)
 
 You will also notice that both Firefox and Chrome supports `.woff2` and will
-only download that file and not the `.woff` files.
+only download those files and not the `.woff` files.
 
 
 ## Implementation
 
-> [firefund-production](https://github.com/Firefund/firefund-production/) is our
+> [firefund-production][firefund-production] is our
 > website. If you can not follow the link, it means **you do not have access**.
 > You are welcome to join us and we regularly have intro meetings.
 > [Contact us!](https://www.firefund.net/about-contact)
@@ -322,7 +322,7 @@ only download that file and not the `.woff` files.
 Before you add the new font files to our website, you should delete the files
 that we do not need. Delete every file and folder in `myfont/web/` **except
 `.woff`, `.woff2` and `font.css`**. Then commit and push everything you just
-made to firefund-lfs.
+made to [firefund-lfs][firefund-lfs].
 
 ```bash
 git add myfont
@@ -330,4 +330,12 @@ git commit -m "added new fonts for firefund"
 git push -u origin master
 ```
 
+Now open the folder where you cloned [firefund-production][firefund-production]
+and locate `public/assets/fonts/`.
+Copy all `.woff` and `.woff2` files from `myfont/web/` into `public/assets/fonts/`.
+Also copy all your TrueType files to `public/assets/fonts/`.
 
+
+
+[firefund-lfs]: https://github.com/Firefund/firefund-lfs
+[firefund-production]: https://github.com/Firefund/firefund-production/
