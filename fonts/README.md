@@ -331,10 +331,91 @@ git push -u origin master
 ```
 
 Now open the folder where you cloned [firefund-production][firefund-production]
-and locate `public/assets/fonts/`.
+at and locate `public/assets/fonts/`.
 Copy all `.woff` and `.woff2` files from `myfont/web/` into `public/assets/fonts/`.
 Also copy all your TrueType files to `public/assets/fonts/`.
 
+Open `styles/font.css` in your editor.
+The `@font-face` declaration looks a little different from what we have seen so far:
+
+```css
+/* bold */
+@font-face {
+  font-family: 'roboto';
+  src: local('Roboto Bold'),
+       local('Roboto-Bold'),
+       url(/assets/fonts/roboto-bold.woff2) format('woff2'),
+       url(/assets/fonts/roboto-bold.woff) format('woff'),
+       url(/assets/fonts/Roboto-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+```
+_Our production CSS has a `local()` for finding our font on a user's machine
+instead of downloading the same font from our server._
+
+> When authors would prefer to use a locally available copy of a given font and
+> download it if it's not, local() can be used. The locally-installed
+> <font-face-name> argument to local() is a format-specific string that uniquely
+> identifies a single font face within a larger family.
+> For OpenType and TrueType fonts, this string is used to match only the
+> Postscript name or the full font name in the name table of locally available
+> fonts. Which type of name is used varies by platform and font, so authors should
+> include both of these names to assure proper matching across platforms.
+> https://drafts.csswg.org/css-fonts-3/#src-desc
+
+As you probably have noticed from our verification, the browser will only download
+a font if it is used. If a page does not use `Roboto Bold Italic`, then that
+font file will not be downloaded, even though our CSS defining that font is
+downloaded. But it would be even better if a user didn't have to download our
+font at all. That is where `local()` shines. Unfortunately, we don't know the
+name of `Roboto Bold Italic` on a user machine. As I've said before, fonts
+are usually preinstalled by a device vendor, e.i. Samsung could install
+`Roboto Bold Italic` with one PostScript name (PSName) and Apple with yet
+another. But even though there is some standardization inside Adobe for font
+names,
+[trying to get it right across platforms](http://rachaelmoore.name/posts/design/css/find-font-name-css-family-stack/)
+is just ridiculous.
+
+But we're really only interested in the exact font that we have manually
+downloaded and verified, so we can use a tool like
+[FontForge](http://fontforge.github.io/en-US/) or ask Google Fonts.
+We can only ask Google Fonts for fonts hosted with them but it's fairly easy to
+do. In your browser go to
+[https://fonts.googleapis.com/css?family=Roboto:700,700italic,400,400italic,300,300italic](https://fonts.googleapis.com/css?family=Roboto:700,700italic,400,400italic,300,300italic).
+
+```css
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Roboto Light Italic'),
+       local('Roboto-LightItalic'),
+       url(https://fonts.gstatic.com/s/roboto/v18/KFOjCnqEu92Fr1Mu51TjASc3CsTKlA.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+```
+
+Google Fonts tells us it is called `Roboto Light Italic` or `Roboto-LightItalic`.
+If I take the same font and open it in FontForge, I'm told it's called
+`Roboto-LightItalic`.
+
+> In FontForge, you can get the font information by opening the font file and
+> select [Element](https://fontforge.github.io/elementmenu.html)->
+> [Font Info...](https://fontforge.github.io/fontinfo.html)
+
+**Copy in the PSName for each font variation into `styles/font.css`.** While almost
+all browsers support WOFF, it doesn't hurt to also add our
+original TrueType, in case a browser doesn't understand WOFF. And it gives us a
+backup of our original font file in case we need to create a new format in the
+future.
+
+Now we only need to create a new `bundle.css` that we can use on our website.
+Write `make prod` in your terminal in the `firefund-production` folder and
+push to our staging server.
+
+#### Congratulations! ####
 
 
 [firefund-lfs]: https://github.com/Firefund/firefund-lfs
