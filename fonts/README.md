@@ -279,8 +279,8 @@ Not all browsers support `.woff2` so we need to serve both.
 
 Copy `myfont/font.css` to `myfont/web/font.css`.
 
-Open both `myfont/web/stylesheet.css` and `myfont/web/font.css` and copy the new
-Font Squirrel generated `src: url()` to `myfont/web/font.css`.
+Open both `myfont/web/stylesheet.css` and `myfont/web/font.css` and **copy the new
+Font Squirrel generated `src: url()` to `myfont/web/font.css`.**
 
 The result should be:
 
@@ -303,13 +303,6 @@ TrueType.
 ```html
 <!-- <link rel="stylesheet" href="font.css"> -->
 <link rel="stylesheet" href="web/font.css">
-```
-
-You also have to rename `myfont/web/stylesheet.css` to
-`myfont/web/font.css`, so that our reference in `index.html` is correct.
-
-```
-mv myfont/web/stylesheet.css myfont/web/font.css
 ```
 
 Repeat the verification steps that we did for TrueType to check that our
