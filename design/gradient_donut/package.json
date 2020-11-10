@@ -1,0 +1,23 @@
+{
+  "name": "gradient_donut",
+  "version": "1.0.0",
+  "description": "Tool for experimenting with gradient design for a donut chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./server.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Firefund/firefund-lfs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Firefund/firefund-lfs/issues"
+  },
+  "homepage": "https://github.com/Firefund/firefund-lfs#readme",
+  "devDependencies": {
+    "livereload": "^0.9.1"
+  }
+}
