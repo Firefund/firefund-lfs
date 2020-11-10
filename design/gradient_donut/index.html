@@ -25,6 +25,7 @@
 				<img class="vanilla" width="180" height="180" src="./donut.png">
 				<canvas class="vanilla" width="180" height="180"></canvas>
 				<canvas class="vanilla" width="180" height="180"></canvas>
+				<img class="vanilla" width="180" height="180" src="./donut.png">
 
 				<canvas class="d-goal--canvas"></canvas>
 
@@ -53,30 +54,50 @@
 			ctx.lineWidth = 42
 			drawArc(ctx)
 
-			var {ctx, gradient} = createGradient1(canvasList[2].getContext('2d'))
+			var {ctx, gradient} = createGradient2(canvasList[2].getContext('2d'))
 			ctx.fillStyle = gradient
 			drawRect(ctx)
 
-			var {ctx, gradient} = createGradient1(canvasList[3].getContext('2d'))
+			var {ctx, gradient} = createGradient2(canvasList[3].getContext('2d'))
 			ctx.strokeStyle = gradient
 			ctx.lineWidth = 42
 			drawArc(ctx)
 
 			function createGradient1 (ctx) {
-				// Create a radial gradient
 				// The inner circle is at x=110, y=90, with radius=30
 				// The outer circle is at x=100, y=100, with radius=70
 				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
 				var gradient = ctx.createRadialGradient(100,100,31, 100,100,70);
 
 				// Add three color stops
-				gradient.addColorStop(0, redDark);
-				gradient.addColorStop(.1, red);
-				gradient.addColorStop(1, redLight);
+				const innerColor = redDark
+				const mainColor = red
+				const outerColor = redLight
+				gradient.addColorStop(0, innerColor);
+				gradient.addColorStop(.04, innerColor);
+				gradient.addColorStop(.05, mainColor);
+				gradient.addColorStop(1, outerColor);
 
 				return { ctx, gradient }
 			}
-			function createGradient2 (ctx) {}
+			function createGradient2 (ctx) {
+				// The inner circle is at x=110, y=90, with radius=30
+				// The outer circle is at x=100, y=100, with radius=70
+				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
+				var gradient = ctx.createRadialGradient(100,100,31, 100,100,70);
+
+				// Add three color stops
+				const innerColor = "hsla(1, 90%, 10%, 1)"
+				const mainColor = "hsla(1, 73.7%, 20%, 1)"
+				const outerColor = "transparent"
+				gradient.addColorStop(0, innerColor);
+				gradient.addColorStop(.04, innerColor);
+				gradient.addColorStop(.05, mainColor);
+				gradient.addColorStop(.7, mainColor);
+				gradient.addColorStop(.73, outerColor);
+
+				return { ctx, gradient }
+			}
 
 			function drawRect (ctx) {
 				// ctx.fillRect(x, y, width, height)
@@ -90,7 +111,7 @@
 				ctx.stroke()
 			}
 
-			chartjs()
+			// chartjs()
 			function chartjs () {
 				/** @type {CanvasRenderingContext2D} */
 				const ctx = document.querySelector('.d-goal--canvas').getContext('2d')
