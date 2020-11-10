@@ -44,15 +44,53 @@
 
 			const canvasList = document.querySelectorAll('canvas.vanilla')
 
-			vanilla(canvasList[0].getContext('2d'), true, [100,100,31, 100,100,70])
-			vanilla(canvasList[1].getContext('2d'), false, [100,100,31, 100,100,70])
+			var {ctx, gradient} = createGradient1(canvasList[0].getContext('2d'))
+			ctx.fillStyle = gradient
+			drawRect(ctx)
 
-			vanilla(canvasList[2].getContext('2d'), false, [100,100,31, 100,100,70])
-			vanilla(canvasList[3].getContext('2d'), true, [100,100,31, 100,100,70])
+			var {ctx, gradient} = createGradient1(canvasList[1].getContext('2d'))
+			ctx.strokeStyle = gradient
+			ctx.lineWidth = 42
+			drawArc(ctx)
 
+			var {ctx, gradient} = createGradient1(canvasList[2].getContext('2d'))
+			ctx.fillStyle = gradient
+			drawRect(ctx)
+
+			var {ctx, gradient} = createGradient1(canvasList[3].getContext('2d'))
+			ctx.strokeStyle = gradient
+			ctx.lineWidth = 42
+			drawArc(ctx)
+
+			function createGradient1 (ctx) {
+				// Create a radial gradient
+				// The inner circle is at x=110, y=90, with radius=30
+				// The outer circle is at x=100, y=100, with radius=70
+				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
+				var gradient = ctx.createRadialGradient(100,100,31, 100,100,70);
+
+				// Add three color stops
+				gradient.addColorStop(0, redDark);
+				gradient.addColorStop(.1, red);
+				gradient.addColorStop(1, redLight);
+
+				return { ctx, gradient }
+			}
+			function createGradient2 (ctx) {}
+
+			function drawRect (ctx) {
+				// ctx.fillRect(x, y, width, height)
+				ctx.fillRect(20, 20, 160, 160);
+			}
+
+			function drawArc (ctx) {
+				ctx.beginPath();
+				// ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+				ctx.arc(100, 100, 50, 0, 2 * Math.PI);
+				ctx.stroke()
+			}
 
 			chartjs()
-
 			function chartjs () {
 				/** @type {CanvasRenderingContext2D} */
 				const ctx = document.querySelector('.d-goal--canvas').getContext('2d')
@@ -84,39 +122,6 @@
 				// 	donut.outerRadius,
 				// 	donut.radiusLength,
 				// 	donut)
-			}
-
-			/**
-			 * @param {CanvasRenderingContext2D} ctx
-			 * @param {boolean} rect
-			 * @param {number[]} gradientArg
-			 */
-			function vanilla (ctx, rect, gradientArg) {
-				// Create a radial gradient
-				// The inner circle is at x=110, y=90, with radius=30
-				// The outer circle is at x=100, y=100, with radius=70
-				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
-				var gradient = ctx.createRadialGradient(...gradientArg);
-
-				// Add three color stops
-				gradient.addColorStop(0, redDark);
-				gradient.addColorStop(.1, red);
-				gradient.addColorStop(1, redLight);
-
-				ctx.fillStyle = gradient;
-				ctx.strokeStyle = gradient;
-				ctx.lineWidth = 42
-
-				if (rect) {
-					// ctx.fillRect(x, y, width, height)
-					ctx.fillRect(20, 20, 160, 160);
-				} else {
-					ctx.beginPath();
-					// ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
-					ctx.arc(100, 100, 50, 0, 2 * Math.PI);
-					ctx.stroke()
-				}
-
 			}
 
 		</script>
