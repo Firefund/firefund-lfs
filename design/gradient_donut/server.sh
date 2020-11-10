@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # install node dependencies if node_modules does not exist
 if [ ! -d "./node_modules" ]; then
