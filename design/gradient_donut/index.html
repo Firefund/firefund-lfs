@@ -25,7 +25,6 @@
 				<img class="vanilla" width="180" height="180" src="./donut.png">
 				<canvas class="vanilla" width="180" height="180"></canvas>
 				<canvas class="vanilla" width="180" height="180"></canvas>
-				<img class="vanilla" width="180" height="180" src="./donut.png">
 
 				<canvas class="d-goal--canvas"></canvas>
 
@@ -111,10 +110,13 @@
 				ctx.stroke()
 			}
 
-			// chartjs()
+			chartjs()
 			function chartjs () {
 				/** @type {CanvasRenderingContext2D} */
 				const ctx = document.querySelector('.d-goal--canvas').getContext('2d')
+				const { gradient1 } = createGradient1(ctx)
+				const { gradient2 } = createGradient2(ctx)
+
 				const donut = new Chart(ctx, {
 					type: 'doughnut',
 					data: {
@@ -126,8 +128,10 @@
 							label: "Donations",
 							data: [440, 60],
 							cubicInterpolationMode: "monotone",
-							borderColor: [red, "white"],
-							backgroundColor: [red, "white"],
+							// borderColor: [red, "white"],
+							// backgroundColor: [red, "white"],
+							borderColor: [gradient1, gradient2],
+							backgroundColor: [gradient1, gradient2],
 						}]
 					},
 					options: {
