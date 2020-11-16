@@ -153,11 +153,13 @@
 			ctx.stroke()
 		}
 
-		document.querySelectorAll('.d-goal--canvas').forEach(canvas => {
-			// console.log("canvas.clientWidth", canvas.clientWidth)
-			canvas.setAttribute('width', canvas.clientWidth + 'px')
-			canvas.setAttribute('height', canvas.clientWidth + 'px')
-			chartjs(canvas)
+		document.querySelectorAll('.d-goal--canvas').forEach(
+			/** @param {HTMLCanvasElement} canvas */
+			canvas => {
+				// console.log("canvas.clientWidth", canvas.clientWidth)
+				canvas.setAttribute('width', canvas.clientWidth + 'px')
+				canvas.setAttribute('height', canvas.clientWidth + 'px')
+				chartjs(canvas)
 		})
 
 
