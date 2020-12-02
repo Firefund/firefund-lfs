@@ -69,157 +69,166 @@
 		// @ts-check
 		'use strict'
 
-		Chart.platform.disableCSSInjection = true
-
-		const canvasList = document.querySelectorAll('canvas.vanilla')
-		const red = "hsla(1, 73.7%, 38.8%, 1)"
-
-		var { ctx, gradient	} = createGradient1(canvasList[0])
-		ctx.fillStyle = gradient
-		drawRect(ctx)
-
-		var { ctx, gradient	} = createGradient1(canvasList[1])
-		ctx.strokeStyle = gradient
-		ctx.lineWidth = 42
-		drawArc(ctx)
-
-		var { ctx, gradient	} = createGradient2(canvasList[2])
-		ctx.fillStyle = gradient
-		drawRect(ctx)
-
-		var { ctx, gradient	} = createGradient2(canvasList[3])
-		ctx.strokeStyle = gradient
-		ctx.lineWidth = 42
-		drawArc(ctx)
-
-		function createGradient1(canvas) {
-			const ctx = canvas.getContext('2d')
-			// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
-			const gradient = ctx.createRadialGradient(
-				canvas.width / 2, // The inner circle is at x=canvas.width / 2
-				canvas.height / 2, // y=canvas.height / 2
-				canvas.height / 4, // with radius=canvas.height / 4
-				canvas.width / 2, // The outer circle is at x=canvas.width / 2
-				canvas.height / 2, // y=canvas.height / 2
-				canvas.height / 2 // with radius=canvas.height / 2
-			)
-
-			const innerColor = "hsla(1, 60%, 30%, 1)"
-			const mainColor = red
-			const outerColor = "hsla(1, 73.7%, 48%, 1)"
-			gradient.addColorStop(0, innerColor)
-			gradient.addColorStop(.09, innerColor)
-			gradient.addColorStop(.1, mainColor)
-			gradient.addColorStop(1, outerColor)
-
-			return { ctx, gradient }
+		if (!window.Chart) {
+			const s = document.createElement('script')
+			s.src = "scripts/Chart.bundle.js"
+			s.onload = main
+			document.head.appendChild(s)
 		}
 
-		function createGradient2(canvas) {
-			const ctx = canvas.getContext('2d')
-			// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
-			const gradient = ctx.createRadialGradient(
-				canvas.width / 2, // The inner circle is at x=canvas.width / 2
-				canvas.height / 2, // y=canvas.height / 2
-				canvas.height / 4, // with radius=canvas.height / 4
-				canvas.width / 2, // The outer circle is at x=canvas.width / 2
-				canvas.height / 2, // y=canvas.height / 2
-				canvas.height / 2 // with radius=canvas.height / 2
-			)
+		function main () {
+			Chart.platform.disableCSSInjection = true
 
-			// Add three color stops
-			const innerColor = "hsla(1, 90%, 10%, 1)"
-			const mainColor = "hsla(1, 73.7%, 20%, 1)"
-			const outerColor = "transparent"
-			gradient.addColorStop(0, innerColor)
-			gradient.addColorStop(.09, innerColor)
-			gradient.addColorStop(.1, mainColor)
-			gradient.addColorStop(.8, mainColor)
-			gradient.addColorStop(.82, outerColor)
+			const canvasList = document.querySelectorAll('canvas.vanilla')
+			const red = "hsla(1, 73.7%, 38.8%, 1)"
 
-			return { ctx, gradient }
-		}
+			var { ctx, gradient	} = createGradient1(canvasList[0])
+			ctx.fillStyle = gradient
+			drawRect(ctx)
 
-		function drawRect(ctx) {
-			// ctx.fillRect(x, y, width, height)
-			ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-		}
+			var { ctx, gradient	} = createGradient1(canvasList[1])
+			ctx.strokeStyle = gradient
+			ctx.lineWidth = 42
+			drawArc(ctx)
 
-		function drawArc(ctx) {
-			const radius = Math.min(ctx.canvas.width / 4, ctx.canvas.height / 4)
-			ctx.beginPath()
-			// ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
-			ctx.arc(ctx.canvas.width / 2, ctx.canvas.height / 2, radius, 0, 2 * Math.PI)
-			ctx.stroke()
-		}
+			var { ctx, gradient	} = createGradient2(canvasList[2])
+			ctx.fillStyle = gradient
+			drawRect(ctx)
 
-		document.querySelectorAll('.d-goal--canvas').forEach(
-			/** @param {HTMLCanvasElement} canvas */
-			canvas => {
-				// console.log("canvas.clientWidth", canvas.clientWidth)
-				canvas.setAttribute('width', canvas.clientWidth + 'px')
-				canvas.setAttribute('height', canvas.clientWidth + 'px')
-				chartjs(canvas)
-		})
+			var { ctx, gradient	} = createGradient2(canvasList[3])
+			ctx.strokeStyle = gradient
+			ctx.lineWidth = 42
+			drawArc(ctx)
 
+			function createGradient1(canvas) {
+				const ctx = canvas.getContext('2d')
+				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
+				const gradient = ctx.createRadialGradient(
+					canvas.width / 2, // The inner circle is at x=canvas.width / 2
+					canvas.height / 2, // y=canvas.height / 2
+					canvas.height / 4, // with radius=canvas.height / 4
+					canvas.width / 2, // The outer circle is at x=canvas.width / 2
+					canvas.height / 2, // y=canvas.height / 2
+					canvas.height / 2 // with radius=canvas.height / 2
+				)
 
-		function resized(chart, size) {
-			const {
-				gradient: gradient1
-			} = createGradient1(chart.canvas)
-			const {
-				gradient: gradient2
-			} = createGradient2(chart.canvas)
+				const innerColor = "hsla(1, 60%, 30%, 1)"
+				const mainColor = red
+				const outerColor = "hsla(1, 73.7%, 48%, 1)"
+				gradient.addColorStop(0, innerColor)
+				gradient.addColorStop(.09, innerColor)
+				gradient.addColorStop(.1, mainColor)
+				gradient.addColorStop(1, outerColor)
 
-			chart.config.data.datasets[0].backgroundColor = [gradient1, gradient2]
-			chart.config.data.datasets[0].borderColor = [gradient1, gradient2]
-			chart.update()
-		}
-		/**
-		 * @param {HTMLCanvasElement} canvas
-		 */
-		function chartjs(canvas) {
-			/** @type {CanvasRenderingContext2D} */
-			const ctx = canvas.getContext('2d')
-			console.dir(canvas)
-			const {
-				gradient: gradient1
-			} = createGradient1(canvas)
-			const {
-				gradient: gradient2
-			} = createGradient2(canvas)
-
-			const config = {
-				type: 'doughnut',
-				data: {
-					labels: [
-						"Pledged",
-						"Missing"
-					],
-					datasets: [{
-						label: "Donations",
-						data: [420, 80],
-						borderWidth: 1,
-						// backgroundColor: [red, "hsl(2, 75%, 20%)"],
-						// borderColor: [red, "hsl(2, 75%, 20%)"],
-						backgroundColor: [gradient1, gradient2],
-						borderColor: [gradient1, gradient2],
-					}]
-				},
-				options: {
-					onResize: resized,
-					legend: {
-						display: false
-					},
-					animation: {
-						easing: "easeInSine"
-					}
-				}
+				return { ctx, gradient }
 			}
 
-			// ctx.shadowColor https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowColor
+			function createGradient2(canvas) {
+				const ctx = canvas.getContext('2d')
+				// ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)
+				const gradient = ctx.createRadialGradient(
+					canvas.width / 2, // The inner circle is at x=canvas.width / 2
+					canvas.height / 2, // y=canvas.height / 2
+					canvas.height / 4, // with radius=canvas.height / 4
+					canvas.width / 2, // The outer circle is at x=canvas.width / 2
+					canvas.height / 2, // y=canvas.height / 2
+					canvas.height / 2 // with radius=canvas.height / 2
+				)
 
-			const donut = new Chart(ctx, config)
+				// Add three color stops
+				const innerColor = "hsla(1, 90%, 10%, 1)"
+				const mainColor = "hsla(1, 73.7%, 20%, 1)"
+				const outerColor = "transparent"
+				gradient.addColorStop(0, innerColor)
+				gradient.addColorStop(.09, innerColor)
+				gradient.addColorStop(.1, mainColor)
+				gradient.addColorStop(.8, mainColor)
+				gradient.addColorStop(.82, outerColor)
+
+				return { ctx, gradient }
+			}
+
+			function drawRect(ctx) {
+				// ctx.fillRect(x, y, width, height)
+				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+			}
+
+			function drawArc(ctx) {
+				const radius = Math.min(ctx.canvas.width / 4, ctx.canvas.height / 4)
+				ctx.beginPath()
+				// ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+				ctx.arc(ctx.canvas.width / 2, ctx.canvas.height / 2, radius, 0, 2 * Math.PI)
+				ctx.stroke()
+			}
+
+			document.querySelectorAll('.d-goal--canvas').forEach(
+				/** @param {HTMLCanvasElement} canvas */
+				canvas => {
+					// console.log("canvas.clientWidth", canvas.clientWidth)
+					canvas.setAttribute('width', canvas.clientWidth + 'px')
+					canvas.setAttribute('height', canvas.clientWidth + 'px')
+					chartjs(canvas)
+			})
+
+
+			function resized(chart, size) {
+				const {
+					gradient: gradient1
+				} = createGradient1(chart.canvas)
+				const {
+					gradient: gradient2
+				} = createGradient2(chart.canvas)
+
+				chart.config.data.datasets[0].backgroundColor = [gradient1, gradient2]
+				chart.config.data.datasets[0].borderColor = [gradient1, gradient2]
+				chart.update()
+			}
+			/**
+			 * @param {HTMLCanvasElement} canvas
+			 */
+			function chartjs(canvas) {
+				/** @type {CanvasRenderingContext2D} */
+				const ctx = canvas.getContext('2d')
+				console.dir(canvas)
+				const {
+					gradient: gradient1
+				} = createGradient1(canvas)
+				const {
+					gradient: gradient2
+				} = createGradient2(canvas)
+
+				const config = {
+					type: 'doughnut',
+					data: {
+						labels: [
+							"Pledged",
+							"Missing"
+						],
+						datasets: [{
+							label: "Donations",
+							data: [420, 80],
+							borderWidth: 1,
+							// backgroundColor: [red, "hsl(2, 75%, 20%)"],
+							// borderColor: [red, "hsl(2, 75%, 20%)"],
+							backgroundColor: [gradient1, gradient2],
+							borderColor: [gradient1, gradient2],
+						}]
+					},
+					options: {
+						onResize: resized,
+						legend: {
+							display: false
+						},
+						animation: {
+							easing: "easeInSine"
+						}
+					}
+				}
+
+				// ctx.shadowColor https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowColor
+
+				const donut = new Chart(ctx, config)
+			}
 		}
 	</script>
 	<script>
